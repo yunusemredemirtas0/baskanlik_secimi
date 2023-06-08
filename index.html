@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>SBKYT Başkanlık Seçimi</title>
+    <title>SBKYT Form</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="index.css">
     <script src="airtablelib.js"></script>
@@ -13,6 +13,11 @@
 
     <style>
         @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
+
+
+        .label1{
+        
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.10">
 </head>
@@ -26,31 +31,34 @@
 
 
         <form id="contact">
-            <fieldset>
-                <h3>SBKYT Başkanlık Seçimi</h3><br>
-
-
-                <input type="checkbox" id="samet" name="samet" value="samet">
-                <label for="samet">Samet HİRA</label><br><br><br>
-
-
-                <input type="checkbox" id="ridvan" name="ridvan" value="ridvan" >
-                <label for="ridvan">Rıdvan ÖZTEMEL</label><br><br><br>
-
-
-            </fieldset>
+            <h3>SBKYT Başkanlık Seçimi</h3><br>
 
             <fieldset>
-                <button name="submit" type="submit" id="submit">Oy Kullan<i class="bi bi-send"></i></button>
+            <label id="label1">Lütfen oy vermek istediğiniz başkan adayını seçiniz.</label><br><br><br><br>
+            <select id="adaylar">
+                <option value="bos"></option>
+                <option value="samet">Samet HİRA</option>
+                <option value="ridvan">Rıdvan ÖZTEMEL</option>
+            </select>
+        </fieldset>
+       <br>
 
 
-            </fieldset>
+        </fieldset>
+        <fieldset>
+            <button name="submit" type="submit" id="submit">Oy Kullan <i class="bi bi-send"></i></button>
 
 
-        </form><br>
-
-
-
+        </fieldset>
+        <fieldset>
+            <div class="copyright">
+                Bize ulaşabilirsiniz. <br>
+                <a href="https://www.instagram.com/sbkytofficial/" target="_blank"> <i class="bi bi-instagram"></i></a>
+                <span> </span>
+                <a href="https://twitter.com/sbkytofficial" target="_blank"> <i class="bi bi-twitter"> </i></a>
+            </div>
+        </fieldset>
+        </form>
 
     </div>
 
@@ -68,17 +76,15 @@
 
             console.log("hi");
 
-            console.log(document.getElementById("samet").value);
-            console.log(document.getElementById("ridvan").value,);
+            console.log(document.getElementById("adaylar").value);
 
             var Airtable = require('airtable');
-            var base = new Airtable({ apiKey: 'key7dSkVm5sAF7dJq' }).base('appBJVXHGPwZvAvZt');
+            var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appfGZqoSzhhZt0k2');
 
             base('People').create([
                 {
                     "fields": {
-                        "samet": document.getElementById("samet").value,
-                        "ridvan": document.getElementById("ridvan").value,
+                        "adaylar": document.getElementById("adaylar").value,
                     }
                 },
 
