@@ -12,12 +12,9 @@
 
 
     <style>
+
         @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
 
-
-        .label1{
-        
-        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.10">
 </head>
@@ -34,13 +31,21 @@
             <h3>SBKYT Başkanlık Seçimi</h3><br>
 
             <fieldset>
-            <label id="label1">Lütfen oy vermek istediğiniz başkan adayını seçiniz.</label><br><br><br><br>
-            <select id="adaylar">
-                <option value="bos"></option>
-                <option value="samet">Abdurrahman 'Samet' HİRA</option>
-                <option value="ridvan">Rıdvan ÖZTEMEL</option>
-            </select>
-        </fieldset>
+            <label>Lütfen oy vermek istediğiniz başkan adayını seçiniz.</label><br><br><br><br>
+            </fieldset>
+
+
+
+            <input type="radio" id="aday1" value="samet">
+            <label for="samet">Abdurrahman 'Samet' HİRA</label><br><br>
+
+
+
+
+            <input type="radio" id="aday2" value="ridvan">
+            <label for="ridvan">Rıdvan ÖZTEMEL</label><br><br>
+  
+
        <br>
 
 
@@ -65,43 +70,83 @@
 
 
     <script>
-
         var thisForm = document.getElementById("contact");
 
+thisForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  console.log("hi");
+
+  var selectedCandidate = "";
+  if (document.getElementById("aday1").checked) {
+    selectedCandidate = "Abdurrahman 'Samet' HİRA";
+  } else if (document.getElementById("aday2").checked) {
+    selectedCandidate = "Rıdvan ÖZTEMEL";
+  }
+
+  console.log(selectedCandidate);
+
+  var Airtable = require('airtable');
+  var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appfGZqoSzhhZt0k2');
+
+  base('People').create([
+    {
+      "fields": {
+        "selected_candidate": selectedCandidate
+      }
+    }
+  ], function(err, records) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    records.forEach(function(record) {
+      console.log(record.getId());
+    });
+    window.location = ('thanks.html');
+  });
+});
+
+        // var thisForm = document.getElementById("contact");
 
 
-        thisForm.addEventListener("submit", function (event) {
-            event.preventDefault();
+
+        // thisForm.addEventListener("submit", function (event) {
+        //     event.preventDefault();
 
 
-            console.log("hi");
+        //     console.log("hi");
 
-            console.log(document.getElementById("adaylar").value);
+        //     console.log(document.getElementById("aday1").value);
+        //     console.log(document.getElementById("aday2").value);
 
-            var Airtable = require('airtable');
-            var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appfGZqoSzhhZt0k2');
+        //     var Airtable = require('airtable');
+        //     var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appfGZqoSzhhZt0k2');
 
-            base('People').create([
-                {
-                    "fields": {
-                        "adaylar": document.getElementById("adaylar").value,
-                    }
-                },
+        //     base('People').create([
+        //         {
+        //             "fields": {
 
-            ], function (err, records) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                records.forEach(function (record) {
-                    console.log(record.getId());
-                });
-                window.location = ('thanks.html');
-            });
+        //                 "aday1": document.getElementById("aday1").value,
+        //                 "aday2": document.getElementById("aday2").value,
+
+        //             }
+        //         },
+
+        //     ], function (err, records) {
+        //         if (err) {
+        //             console.error(err);
+        //             return;
+        //         }
+        //         records.forEach(function (record) {
+        //             console.log(record.getId());
+        //         });
+        //         window.location = ('thanks.html');
+        //     });
 
 
 
-        })
+        // })
 
     </script>
 
