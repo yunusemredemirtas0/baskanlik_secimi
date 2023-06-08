@@ -12,9 +12,7 @@
 
 
     <style>
-
         @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
-
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.10">
 </head>
@@ -31,7 +29,7 @@
             <h3>SBKYT Başkanlık Seçimi</h3><br>
 
             <fieldset>
-            <label>Lütfen oy vermek istediğiniz başkan adayını seçiniz.</label><br><br><br><br>
+                <label>Lütfen oy vermek istediğiniz başkan adayını seçiniz.</label><br><br><br><br>
             </fieldset>
 
 
@@ -44,27 +42,28 @@
 
             <input type="checkbox" id="aday2" value="ridvan">
             <label for="ridvan">Rıdvan ÖZTEMEL</label><br><br>
-  
-
-       <br>
 
 
-        </fieldset>
-        <fieldset>
-            <button name="submit" type="submit" id="submit">Oy Kullan <i class="bi bi-send"></i></button>
+            <br>
 
 
-        </fieldset>
-        <fieldset>
-            <div class="copyright">
-                Bize ulaşabilirsiniz. <br>
-                <a href="https://www.instagram.com/sbkytofficial/" target="_blank"> <i class="bi bi-instagram"></i></a>
-                <span> </span>
-                <a href="https://twitter.com/sbkytofficial" target="_blank"> <i class="bi bi-twitter"> </i></a>
-            </div>
-        </fieldset>
+            </fieldset>
+            <fieldset>
+                <button name="submit" type="submit" id="submit">Oy Kullan <i class="bi bi-send"></i></button>
+
+
+            </fieldset>
+            <fieldset>
+                <div class="copyright">
+                    Bize ulaşabilirsiniz. <br>
+                    <a href="https://www.instagram.com/sbkytofficial/" target="_blank"> <i
+                            class="bi bi-instagram"></i></a>
+                    <span> </span>
+                    <a href="https://twitter.com/sbkytofficial" target="_blank"> <i class="bi bi-twitter"> </i></a>
+                </div>
+            </fieldset>
         </form>
-
+        <p style="text-align:center;">designed by YED</p>
     </div>
 
 
@@ -72,40 +71,40 @@
     <script>
         var thisForm = document.getElementById("contact");
 
-thisForm.addEventListener("submit", function(event) {
-  event.preventDefault();
+        thisForm.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-  console.log("hi");
+            console.log("hi");
 
-  var selectedCandidate = "";
-  if (document.getElementById("aday1").checked) {
-    selectedCandidate = "Abdurrahman 'Samet' HİRA";
-  } else if (document.getElementById("aday2").checked) {
-    selectedCandidate = "Rıdvan ÖZTEMEL";
-  }
+            var selectedCandidate = "";
+            if (document.getElementById("aday1").checked) {
+                selectedCandidate = "Abdurrahman 'Samet' HİRA";
+            } else if (document.getElementById("aday2").checked) {
+                selectedCandidate = "Rıdvan ÖZTEMEL";
+            }
 
-  console.log(selectedCandidate);
+            console.log(selectedCandidate);
 
-  var Airtable = require('airtable');
-  var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appfGZqoSzhhZt0k2');
+            var Airtable = require('airtable');
+            var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appfGZqoSzhhZt0k2');
 
-  base('People').create([
-    {
-      "fields": {
-        "selected_candidate": selectedCandidate
-      }
-    }
-  ], function(err, records) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    records.forEach(function(record) {
-      console.log(record.getId());
-    });
-    window.location = ('thanks.html');
-  });
-});
+            base('People').create([
+                {
+                    "fields": {
+                        "selected_candidate": selectedCandidate
+                    }
+                }
+            ], function (err, records) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                records.forEach(function (record) {
+                    console.log(record.getId());
+                });
+                window.location = ('thanks.html');
+            });
+        });
 
         // var thisForm = document.getElementById("contact");
 
