@@ -43,9 +43,6 @@
             <input type="checkbox" id="aday2" value="hayır">
             <label for="hayır">HAYIR</label><br><br>
 
-            <input type="checkbox" id="bos" value="bos">
-            <label for="bos">BOŞ</label><br>
-
 
             <br>
 
@@ -84,10 +81,7 @@ thisForm.addEventListener("submit", function (event) {
         selectedCandidate = "evet";
     } else if (document.getElementById("aday2").checked) {
         selectedCandidate = "hayır";
-    } else if (document.getElementById("bos").checked) {
-        selectedCandidate = "bos";
     } 
-
     console.log(selectedCandidate);
 
     var Airtable = require('airtable');
