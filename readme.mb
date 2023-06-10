@@ -1,0 +1,77 @@
+        var thisForm = document.getElementById("contact");
+
+        thisForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            console.log("hi");
+
+            var selectedCandidate = "";
+            if (document.getElementById("aday1").checked) {
+                selectedCandidate = "Abdurrahman 'Samet' HİRA";
+            } else if (document.getElementById("aday2").checked) {
+                selectedCandidate = "Rıdvan ÖZTEMEL";
+            }
+
+            console.log(selectedCandidate);
+
+            var Airtable = require('airtable');
+            var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appT9nTCefkLk0PJV');
+
+            base('People').create([
+                {
+                    "fields": {
+                        "selected_candidate": selectedCandidate
+                    }
+                }
+            ], function (err, records) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                records.forEach(function (record) {
+                    console.log(record.getId());
+                });
+                window.location = ('thanks.html');
+            });
+        });
+
+        // var thisForm = document.getElementById("contact");
+
+
+
+        // thisForm.addEventListener("submit", function (event) {
+        //     event.preventDefault();
+
+
+        //     console.log("hi");
+
+        //     console.log(document.getElementById("aday1").value);
+        //     console.log(document.getElementById("aday2").value);
+
+        //     var Airtable = require('airtable');
+        //     var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appfGZqoSzhhZt0k2');
+
+        //     base('People').create([
+        //         {
+        //             "fields": {
+
+        //                 "aday1": document.getElementById("aday1").value,
+        //                 "aday2": document.getElementById("aday2").value,
+
+        //             }
+        //         },
+
+        //     ], function (err, records) {
+        //         if (err) {
+        //             console.error(err);
+        //             return;
+        //         }
+        //         records.forEach(function (record) {
+        //             console.log(record.getId());
+        //         });
+        //         window.location = ('thanks.html');
+        //     });
+
+
+
+        // })

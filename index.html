@@ -29,19 +29,22 @@
             <h3>SBKYT Başkanlık Seçimi</h3><br>
 
             <fieldset>
-                <label>Lütfen oy vermek istediğiniz başkan adayını seçiniz.</label><br><br><br><br>
+                <label>Lütfen oy verme işleminizi gerçekleştiriniz.</label><br><br><br>
             </fieldset>
 
 
 
-            <input type="checkbox" id="aday1" value="samet">
-            <label for="samet">Abdurrahman 'Samet' HİRA</label><br><br>
+          
+           <h4> <label>Abdurrahman 'Samet' HİRA</label><br><br> </h4>
 
+            <input type="checkbox" id="aday1" value="evet">
+            <label for="evet">EVET</label><br><br>
 
+            <input type="checkbox" id="aday2" value="hayır">
+            <label for="hayır">HAYIR</label><br><br>
 
-
-            <input type="checkbox" id="aday2" value="ridvan">
-            <label for="ridvan">Rıdvan ÖZTEMEL</label><br><br>
+            <input type="checkbox" id="bos" value="bos">
+            <label for="bos">BOŞ</label><br>
 
 
             <br>
@@ -69,83 +72,45 @@
 
 
     <script>
-        var thisForm = document.getElementById("contact");
+          var thisForm = document.getElementById("contact");
 
-        thisForm.addEventListener("submit", function (event) {
-            event.preventDefault();
+thisForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-            console.log("hi");
+    console.log("hi");
 
-            var selectedCandidate = "";
-            if (document.getElementById("aday1").checked) {
-                selectedCandidate = "Abdurrahman 'Samet' HİRA";
-            } else if (document.getElementById("aday2").checked) {
-                selectedCandidate = "Rıdvan ÖZTEMEL";
+    var selectedCandidate = "";
+    if (document.getElementById("aday1").checked) {
+        selectedCandidate = "evet";
+    } else if (document.getElementById("aday2").checked) {
+        selectedCandidate = "hayır";
+    } else if (document.getElementById("bos").checked) {
+        selectedCandidate = "bos";
+    } 
+
+    console.log(selectedCandidate);
+
+    var Airtable = require('airtable');
+    var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appT9nTCefkLk0PJV');
+
+    base('People').create([
+        {
+            "fields": {
+                "selected_candidate": selectedCandidate
             }
-
-            console.log(selectedCandidate);
-
-            var Airtable = require('airtable');
-            var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appT9nTCefkLk0PJV');
-
-            base('People').create([
-                {
-                    "fields": {
-                        "selected_candidate": selectedCandidate
-                    }
-                }
-            ], function (err, records) {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                records.forEach(function (record) {
-                    console.log(record.getId());
-                });
-                window.location = ('thanks.html');
-            });
+        }
+    ], function (err, records) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        records.forEach(function (record) {
+            console.log(record.getId());
         });
+        window.location = ('thanks.html');
+    });
+});
 
-        // var thisForm = document.getElementById("contact");
-
-
-
-        // thisForm.addEventListener("submit", function (event) {
-        //     event.preventDefault();
-
-
-        //     console.log("hi");
-
-        //     console.log(document.getElementById("aday1").value);
-        //     console.log(document.getElementById("aday2").value);
-
-        //     var Airtable = require('airtable');
-        //     var base = new Airtable({ apiKey: 'keyw5vqwrHcgFGoY8' }).base('appfGZqoSzhhZt0k2');
-
-        //     base('People').create([
-        //         {
-        //             "fields": {
-
-        //                 "aday1": document.getElementById("aday1").value,
-        //                 "aday2": document.getElementById("aday2").value,
-
-        //             }
-        //         },
-
-        //     ], function (err, records) {
-        //         if (err) {
-        //             console.error(err);
-        //             return;
-        //         }
-        //         records.forEach(function (record) {
-        //             console.log(record.getId());
-        //         });
-        //         window.location = ('thanks.html');
-        //     });
-
-
-
-        // })
 
     </script>
 
